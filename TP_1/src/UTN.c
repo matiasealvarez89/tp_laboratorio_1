@@ -3,6 +3,15 @@
 #include <stdlib.h>
 #include "UTN.h"
 
+/// Funcion que solicita al usuario un entero por consola. Tiene @brief
+///
+/// @param pNumeroIngresado
+/// @param mensaje
+/// @param mensajeError
+/// @param minimo
+/// @param maximo
+/// @param reintentos
+/// @return
 int getInt(int* pNumeroIngresado,char* mensaje,char* mensajeError,int minimo,int maximo,int reintentos){
 	int buffer;
 	int retorno;
@@ -160,11 +169,11 @@ int diferencia(float* precio1,float* precio2,float* resultado){
 	return retorno;
 }
 
-int mostrarDatos(float* precioConDescuento,float* precioConRecargo,float* precioEnBitcoin,float* precioPorKilometro){
+int mostrarDatos(float precioConDescuento,float precioConRecargo,float precioEnBitcoin,float precioPorKilometro){
 	printf("a) Precio con tarjeta de debito: $%.2f\n",precioConDescuento);
 	printf("b) Precio con tarjeta de credito: $%.2f\n",precioConRecargo);
-	printf("c) Precio pagando con bitcoin: $%.2f\n",precioEnBitcoin);
-	printf("d) Precio pagando con bitcoin: $%.2f\n",precioPorKilometro);
+	printf("c) Precio pagando con bitcoin: %.2f BTC\n",precioEnBitcoin);
+	printf("d) Mostrar precio unitario: $%.2f\n",precioPorKilometro);
 
 	return 0;
 }

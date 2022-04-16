@@ -8,9 +8,9 @@ DIV E
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "UTN.h"
 
-
+#include "pedidoDatos.h"
+#include "auxiliar.h"
 
 
 int main(void) {
@@ -53,13 +53,13 @@ int main(void) {
 					if(flagKilometros != 0 && flagAerolineas != 0 && flagLatam != 0){
 						if(!descuentoDebito(&precioAerolineas, &aerolineasDebito))
 						if(!recargoCredito(&precioAerolineas, &aerolineasCredito))
-						precioBitcoin(&precioAerolineas, &aerolineasBitcoin);
-						precioUnitario(&precioAerolineas, &kilometros, &precioUnitarioAerolineas);
-						descuentoDebito(&precioLatam, &latamDebito);
-						recargoCredito(&precioLatam, &latamCredito);
-						precioBitcoin(&precioLatam, &latamBitcoin);
-						precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam);
-						diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio);
+						if(!precioBitcoin(&precioAerolineas, &aerolineasBitcoin))
+						if(!precioUnitario(&precioAerolineas, &kilometros, &precioUnitarioAerolineas))
+						if(!descuentoDebito(&precioLatam, &latamDebito))
+						if(!recargoCredito(&precioLatam, &latamCredito))
+						if(!precioBitcoin(&precioLatam, &latamBitcoin))
+						if(!precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam))
+						if(!diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio))
 						flagCalculos = 1;
 						printf("Se realizaron los calculos correspondientes.\n\n");
 					}else{
@@ -89,16 +89,17 @@ int main(void) {
 					flagKilometros = 1;
 					flagAerolineas = 1;
 					flagLatam = 1;
+					flagCalculos = 1;
 
-					descuentoDebito(&precioAerolineas, &aerolineasDebito);
-					recargoCredito(&precioAerolineas, &aerolineasCredito);
-					precioBitcoin(&precioAerolineas, &aerolineasBitcoin);
-					precioUnitario(&precioAerolineas, &kilometros, &precioUnitarioAerolineas);
-					descuentoDebito(&precioLatam, &latamDebito);
-					recargoCredito(&precioLatam, &latamCredito);
-					precioBitcoin(&precioLatam, &latamBitcoin);
-					precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam);
-					diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio);
+					if(!descuentoDebito(&precioAerolineas, &aerolineasDebito))
+					if(!recargoCredito(&precioAerolineas, &aerolineasCredito))
+					if(!precioBitcoin(&precioAerolineas, &aerolineasBitcoin))
+					if(!precioUnitario(&precioAerolineas, &kilometros, &precioUnitarioAerolineas))
+					if(!descuentoDebito(&precioLatam, &latamDebito))
+					if(!recargoCredito(&precioLatam, &latamCredito))
+					if(!precioBitcoin(&precioLatam, &latamBitcoin))
+					if(!precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam))
+					if(!diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio))
 
 					printf("\nKms Ingresados: %d km\n", kilometros);
 					printf("\nPrecio Aerolineas: $%.2f\n", precioAerolineas);

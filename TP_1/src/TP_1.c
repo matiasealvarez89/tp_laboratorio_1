@@ -11,6 +11,8 @@ DIV E
 #include "UTN.h"
 
 
+
+
 int main(void) {
 	setbuf(stdout, NULL);
 
@@ -30,6 +32,7 @@ int main(void) {
 	float latamCredito;
 	float latamBitcoin;
 	float precioUnitarioLatam;
+	int flagCalculos = 0;
 
 	do{
 		menu(kilometros,precioAerolineas,precioLatam);
@@ -44,12 +47,12 @@ int main(void) {
 					}
 					break;
 				case 2:
-					sumbenuPrecio(&precioAerolineas,&precioLatam,&flagAerolineas,&flagLatam);
+					sumbMenu(&precioAerolineas,&precioLatam,&flagAerolineas,&flagLatam);
 					break;
 				case 3:
 					if(flagKilometros != 0 && flagAerolineas != 0 && flagLatam != 0){
-						descuentoDebito(&precioAerolineas, &aerolineasDebito);
-						recargoCredito(&precioAerolineas, &aerolineasCredito);
+						if(!descuentoDebito(&precioAerolineas, &aerolineasDebito))
+						if(!recargoCredito(&precioAerolineas, &aerolineasCredito))
 						precioBitcoin(&precioAerolineas, &aerolineasBitcoin);
 						precioUnitario(&precioAerolineas, &kilometros, &precioUnitarioAerolineas);
 						descuentoDebito(&precioLatam, &latamDebito);
@@ -57,20 +60,26 @@ int main(void) {
 						precioBitcoin(&precioLatam, &latamBitcoin);
 						precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam);
 						diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio);
+						flagCalculos = 1;
+						printf("Se realizaron los calculos correspondientes.\n\n");
 					}else{
-						printf("Faltan ingresar datos.\n");
+						printf("Faltan ingresar datos.\n\n");
 					}
 					break;
 				case 4:
-					if(flagKilometros != 0 && flagAerolineas != 0 && flagLatam != 0){
-						printf("Kms Ingresados: %d km\n", kilometros);
+					if(flagKilometros != 0 && flagAerolineas != 0 && flagLatam != 0 && flagCalculos != 0){
+						printf("\nKms Ingresados: %d km\n", kilometros);
 						printf("\nPrecio Aerolineas: $%.2f\n", precioAerolineas);
 						mostrarDatos(aerolineasDebito, aerolineasCredito, aerolineasBitcoin, precioUnitarioAerolineas);
 						printf("\nPrecio Latam: $%.2f\n", precioLatam);
 						mostrarDatos(latamDebito, latamCredito, latamBitcoin, precioUnitarioLatam);
 						printf("\nLa diferencia de precio es: $%.2f\n\n", diferenciaPrecio);
 					}else{
-						printf("Faltan ingresar datos.\n");
+						if(flagCalculos == 0){
+							printf("No se hicieron los calculos aun.\n\n");
+						}else{
+							printf("Faltan ingresar datos.\n\n");
+						}
 					}
 					break;
 				case 5:
@@ -91,7 +100,7 @@ int main(void) {
 					precioUnitario(&precioLatam, &kilometros, &precioUnitarioLatam);
 					diferencia(&precioAerolineas,&precioLatam,&diferenciaPrecio);
 
-					printf("Kms Ingresados: %d km\n", kilometros);
+					printf("\nKms Ingresados: %d km\n", kilometros);
 					printf("\nPrecio Aerolineas: $%.2f\n", precioAerolineas);
 					mostrarDatos(aerolineasDebito, aerolineasCredito, aerolineasBitcoin, precioUnitarioAerolineas);
 					printf("\nPrecio Latam: $%.2f\n", precioLatam);
@@ -99,7 +108,7 @@ int main(void) {
 					printf("\nLa diferencia de precio es: $%.2f\n\n", diferenciaPrecio);
 					break;
 				case 6:
-					printf("Ha salido con exito.");
+					printf("Ha salido con exito.\n");
 					break;
 			}
 

@@ -82,6 +82,10 @@ static int esNumerica(char* array)
 	return retorno;
 }
 
+/// @brief Funcion estatica, para analizar si un array esta compuesto solo por letras
+///
+/// @param array
+/// @return
 static int esString(char* array)
 {
 	int retorno = -1;

@@ -18,12 +18,12 @@ typedef struct
 
 int initPassenger(Passenger* list, int len);
 void printUnPassenger(Passenger unPassenger);
-int addPassenger(Passenger* list, int len, int id, char name[], char lastName[], float price, int typePassenger, char flycode[]);
-int findPassenger(Passenger* list, int len, int id);
+int addPassenger(Passenger* list, int len, int id, char name[], char lastName[], float price,int typePassenger, char flyCode[],int indexint);
+int	findPassenger(Passenger* list, int len, int id);
 int removePassenger(Passenger* list, int len, int id);
 int sortPassenger(Passenger* list, int lista, int order);
 int printPassengers(Passenger* list, int len);
 int sortPassengersByCode(Passenger* list, int len, int order);
-int primerPosicionLibre(Passenger* list, int len);
+int primerEspacioLibre(Passenger* list, int len);
 
 #endif /* PASSENGER_H_ */

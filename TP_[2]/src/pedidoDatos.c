@@ -41,22 +41,12 @@ static char getString(char* pResultado)
 	return retorno;
 }
 
-//static int myGets(char* array, int len)
-//{
-//	int retorno = -1;
-//
-//	if(array != NULL && len > 0)
-//	{
-//		fflush(stdin);
-//		fgets(array, len, stdin);
-//		array[strlen(array) - 1] = '\0';
-//		retorno = 0;
-//	}
-//
-//
-//	return retorno;
-//}
 
+
+/// @brief Funcion estatica para anlizar si un array esta compuesto solo por caracteres numericos
+///
+/// @param array Donde a analizar
+/// @return (-1) si no es numerico (0) si es numerico
 static int esNumerica(char* array)
 {
 	int retorno = -1;
@@ -94,7 +84,7 @@ static int esString(char* array)
 
 	for(i = 0 ; array[i] != '\0'; i++)
 	{
-		if((array[i]< 'A' || array[i] > 'Z') && (array[i]< 'a' || array[i] > 'z'))
+		if((array[i]< 'A' || array[i] > 'Z') && (array[i]< 'a' || array[i] > 'z') && array[i] != ' ')
 		{
 			retorno = 0;
 			break;
@@ -240,6 +230,15 @@ int myGets(char* array, int len)
 	return retorno;
 }
 
+/// @brief Pide un array de chars
+///
+/// @param pRespuesta Puntero a donde se guarda el caracter ingresado
+/// @param mensaje Mensaje donde se pide el caracter, indicando las dos opciones
+/// @param mensajeError Mensaje para indicar que no se ingreso un caracter valido
+/// @param a Primer caracter posible
+/// @param b Segundo caracter posible
+/// @param reintentos Cantidad de reintentos en caso de error
+/// @return Encaso de exito (0), en caso de error (-1)
 int getPalabra(char* pStringIngresado,char* mensaje,char* mensajeError,int minimo,int maximo,int reintentos)
 {
 	char buffer[4096];

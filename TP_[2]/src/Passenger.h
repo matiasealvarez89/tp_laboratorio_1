@@ -13,6 +13,7 @@ typedef struct
 	char flyCode[10];
 	int typePassenger;
 	int isEmpty;
+	int statusFlight;
 
 }Passenger;
 
@@ -25,5 +26,7 @@ int sortPassenger(Passenger* list, int lista, int order);
 int printPassengers(Passenger* list, int len);
 int sortPassengersByCode(Passenger* list, int len, int order);
 int primerEspacioLibre(Passenger* list, int len);
+int promedioPasajes(Passenger* list, int len);
+int printPassengersStatus(Passenger* list, int len);
 
 #endif /* PASSENGER_H_ */

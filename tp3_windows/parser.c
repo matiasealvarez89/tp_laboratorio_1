@@ -12,12 +12,48 @@
  */
 int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 {
-//	FILE *pFile;
-//	int r;
-//	in
+	int retorno;
+	Passenger* nuevoPassenger;
+	char id[50];
+	char nombre[50];
+	char apellido[50];
+	char precio[50];
+	char tipoPasajero[50];
+	char codigoVuelo[50];
+	char flightStatus[50];
+	int tipoPasajeroInt;
+	int flightStatusInt;
+
+	retorno = -1;
+
+	if(pFile != NULL && pArrayListPassenger != NULL)
+	{
+		fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id, nombre, apellido, precio, codigoVuelo, tipoPasajero, flightStatus);
+		while(!feof(pFile))
+		{
+			if(fscanf(pFile, "%[^,],%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", id, nombre, apellido, precio,
+					tipoPasajero, codigoVuelo, flightStatus) == 7)
+			{
 
 
-    return 1;
+				nuevoPassenger = Passenger_newParametros(id, nombre, apellido, precio, codigoVuelo, tipoPasajero, flightStatus);
+
+				if(nuevoPassenger != NULL)
+				{
+					if(ll_add(pArrayListPassenger, nuevoPassenger) != -1)
+					{
+					retorno = 0;
+					}
+				}else
+				{
+					Passenger_delete(nuevoPassenger);
+				}
+			}
+		}
+	}
+
+
+	return retorno;
 }
 
 /** \brief Parsea los datos los datos de los pasajeros desde el archivo data.csv (modo binario).

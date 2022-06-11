@@ -1,6 +1,8 @@
 #ifndef PASSENGER_H_
 #define PASSENGER_H_
 
+#include "LinkedList.h"
+
 typedef struct
 {
 	int id;
@@ -43,8 +45,14 @@ int Passenger_setAll(Passenger* this, int id, char* nombre, char* apellido, floa
 int Passenger_getAll(Passenger* this, int* id, char* nombre, char* apellido, float* precio, int* tipoPasajero, char* codigoVuelo, int* flightStatus);
 void Passenger_delete(Passenger* this);
 //void Passenger_deleteAll(LinkedList* pArrayListPassenger);
+int Passenger_compareByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos);
+int Passenger_compareByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos);
 
 void Passenger_printUnPassenger(Passenger* this);
+
+Passenger* Passenger_addPassenger(int idNuevoPassenger);
+int Passenger_edit(Passenger* pPasajeroAEditar);
+int Passenger_findById(LinkedList* pArrayaPasajero, int id);
 
 
 #endif /* PASSENGER_H_ */

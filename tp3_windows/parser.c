@@ -21,8 +21,6 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
 	char tipoPasajero[50];
 	char codigoVuelo[50];
 	char flightStatus[50];
-	int tipoPasajeroInt;
-	int flightStatusInt;
 
 	retorno = -1;
 
@@ -65,6 +63,28 @@ int parser_PassengerFromText(FILE* pFile , LinkedList* pArrayListPassenger)
  */
 int parser_PassengerFromBinary(FILE* pFile , LinkedList* pArrayListPassenger)
 {
+	int retorno;
+	Passenger* pPasajero;
 
-    return 1;
+	retorno = -1;
+
+	if(pFile != NULL && pArrayListPassenger)
+	{
+		while(!feof(pFile))
+		{
+			pPasajero = Passenger_new();
+			if(pPasajero != NULL && fread(pPasajero, sizeof(Passenger), 1, pFile) == 1)
+			{
+				if(ll_add(pArrayListPassenger, pPasajero) != -1)
+				{
+					retorno = 0;
+				}else
+				{
+					Passenger_delete(pPasajero);
+				}
+			}
+		}
+	}
+
+    return retorno;
 }

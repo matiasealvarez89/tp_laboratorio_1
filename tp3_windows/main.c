@@ -29,6 +29,7 @@ int main()
 	int opcion;
 	int flagCarga;
 	int flagCargaArchivo;
+	char respusta;
 
 	flagCarga = 0;
 	flagCargaArchivo = 0;
@@ -53,7 +54,7 @@ int main()
 			switch(opcion)
 			{
 				case 1:
-					if(flagCargaArchivo == 0 && !controller_loadFromText("data.csv", listaPasajeros))
+					if(flagCarga == 0 && !controller_loadFromText("data.csv", listaPasajeros))
 					{
 						flagCarga = 1;
 					}else
@@ -62,32 +63,30 @@ int main()
 					}
 					break;
 				case 2:
+					if(flagCarga == 0 && !controller_loadFromBinary("data2.bin", listaPasajeros))
+					{
+						flagCarga = 1;
+					}else
+					{
+						printf("No se puede cargar el archivo nuevamente\n");
+					}
 					break;
 				case 3:
 					if(!controller_addPassenger(listaPasajeros))
 					{
 						flagCarga = 1;
-					}else
-					{
-						printf("No se pudo guardar el Nuevo Pasajero");
 					}
 					break;
 				case 4:
 					if((flagCarga == 1 || flagCargaArchivo == 1) && !controller_editPassenger(listaPasajeros))
 					{
 						printf("Se modifico correctamente\n");
-					}else
-					{
-						printf("No hay datos cargados para modificar\n");
 					}
 					break;
 				case 5:
 					if((flagCarga == 1 || flagCargaArchivo == 1) && !controller_removePassenger(listaPasajeros))
 					{
 						printf("Se elimino el pasajero");
-					}else
-					{
-						printf("No hay datos cargados para borrar\n");
 					}
 					break;
 				case 6:
@@ -100,23 +99,51 @@ int main()
 					}
 					break;
 				case 7:
+					if(flagCarga == 1 || flagCargaArchivo == 1)
+					{
+						controller_sortPassenger(listaPasajeros);
+					}else
+					{
+						printf("Todavia no hay datos cargados en la lista para ordenar\n");
+					}
 					break;
 				case 8:
+					if(flagCarga == 1 || flagCargaArchivo == 1)
+					{
+						controller_saveAsText("data.csv", listaPasajeros);
+					}else
+					{
+						printf("Todavia no hay datos cargados en la lista para Guardar\n");
+					}
 					break;
 				case 9:
+					if(flagCarga == 1 || flagCargaArchivo == 1)
+					{
+						controller_saveAsBinary("data2.bin", listaPasajeros);
+					}else
+					{
+						printf("Todavia no hay datos cargados en la lista para Guardar\n");
+					}
 					break;
 				case 10:
+					if(!getRespuestaDosChar(&respusta, "No se olvide de guardar los datos, confirma que desea salir? (S- SI N- NO)\n"
+							, "Ingreso Incorrecto\n", 's', 'n', 3))
+					{
+						if(respusta == 's')
+						{
+							ll_deleteLinkedList(listaPasajeros);
+							printf("Cerrando el programa\n");
+						}else
+						{
+							opcion = 0;
+							printf("Volviendo\n");
+						}
+					}
 					break;
 			}
 		}
 	}while(opcion != 10);
 
-
-
-
-
-
-
-    return 0;
+    return EXIT_SUCCESS;
 }
 

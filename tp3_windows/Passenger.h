@@ -44,9 +44,9 @@ int Passenger_getFlightStatus(Passenger* this, int* flightStatus);
 int Passenger_setAll(Passenger* this, int id, char* nombre, char* apellido, float precio, int tipoPasajero, char* codigoVuelo, int flightStatus);
 int Passenger_getAll(Passenger* this, int* id, char* nombre, char* apellido, float* precio, int* tipoPasajero, char* codigoVuelo, int* flightStatus);
 void Passenger_delete(Passenger* this);
-//void Passenger_deleteAll(LinkedList* pArrayListPassenger);
-int Passenger_compareByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos);
-int Passenger_compareByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos);
+int Passenger_compareByApellido(void* pasajeroUno, void* pasajeroDos);
+int Passenger_compareByPrecio(void* pasajeroUno, void* pasajeroDos);
+int Passenger_compareById(void* pasajeroUno, void* pasajeroDos);
 
 void Passenger_printUnPassenger(Passenger* this);
 

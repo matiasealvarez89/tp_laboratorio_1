@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <ctype.h>
 
 #include "Passenger.h"
 #include "pedidoDatos.h"
@@ -101,23 +100,6 @@ void Passenger_delete(Passenger* this)
 		free(this);
 	}
 }
-
-/*void Passenger_deleteAll(LinkedList* pArrayListPassenger)
-{
-	Passenger* this;
-	int len;
-
-	if (pArrayListPassenger != NULL)
-	{
-		len = ll_len(pArrayListPassenger);
-		for (int i = 0; i < len; i++)
-		{
-			this = (Passenger*) ll_get(pArrayListPassenger, i);
-			Passenger_delete(this);
-		}
-	}
-}*/
-
 
 //----------------------------------Getters y Setters----------------------------------------
 
@@ -529,7 +511,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 1:
 							if(!getPalabra(nombreAux, "Ingrese el Nombre\n", "Ingreso incorrecto\n", 2, 49, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -545,7 +527,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 2:
 							if(!getPalabra(apellidoAux, "Ingrese el Apellido\n", "Ingreso incorrecto\n", 2, 49, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -561,7 +543,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 3:
 							if(!getFloat(&precioAux, "Ingrese el precio\n", "Ingreso Incorrecto", 5000, 100000, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -577,7 +559,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 4:
 							if(!getPalabraConNumeros(flyCodeAux, "Ingrese el codigo de vuelo\n", "Ingreso incorrecto\n", 3, 9, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -593,7 +575,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 5:
 							if(!getNumero(&tipoPasajeroAux, "Indique el tipo de Pasajero(1) FirstClass 2) ExecutiveClass 3) EconomyClass)\n", "Ingreso incorrecto", 1, 3, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -609,7 +591,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 						case 6:
 							if(!getNumero(&flightStatusAux, "Indique el tipo de Pasajero(1) FirstClass 2) ExecutiveClass 3) EconomyClass)\n", "Ingreso incorrecto", 1, 3, 3))
 							{
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma el cambio?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -628,7 +610,7 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 								printf("ID 	   Nombre 	Apellido	Precio		CodigoVuelo 	TipoPasajero	FlightStatus\n");
 								Passenger_printUnPassenger(pPasajeroAux);
 
-								if(tolower(!getRespuestaDosChar(&respuesta, "Confirma los cambios?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+								if(!getRespuestaDosChar(&respuesta, "Confirma los cambios?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
 								{
 									if(respuesta == 's')
 									{
@@ -680,7 +662,7 @@ int Passenger_findById(LinkedList* pArrayaPasajero, int id)
 
 //-----------------------------------Sort-------------------------------------------------
 
-int Passenger_compareByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos)
+int Passenger_compareByApellido(void* pasajeroUno, void* pasajeroDos)
 {
 	int retorno;
 	char auxApellidoUno[50];
@@ -698,7 +680,7 @@ int Passenger_compareByApellido(Passenger* pasajeroUno, Passenger* pasajeroDos)
 	return retorno;
 }
 
-int Passenger_compareByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos)
+int Passenger_compareByPrecio(void* pasajeroUno, void* pasajeroDos)
 {
 	int retorno;
 	float auxPrecioUno;
@@ -714,6 +696,30 @@ int Passenger_compareByPrecio(Passenger* pasajeroUno, Passenger* pasajeroDos)
 		{
 			retorno = 1;
 		}else if(auxPrecioDos > auxPrecioUno)
+		{
+			retorno = -1;
+		}
+	}
+
+	return retorno;
+}
+
+int Passenger_compareById(void* pasajeroUno, void* pasajeroDos)
+{
+	int retorno;
+	int auxIdUno;
+	int auxIdDos;
+	retorno = 0;
+
+	if(pasajeroUno != NULL && pasajeroDos != NULL)
+	{
+		Passenger_getId(pasajeroUno, &auxIdUno);
+		Passenger_getId(pasajeroDos, &auxIdDos);
+
+		if(auxIdUno > auxIdDos)
+		{
+			retorno = 1;
+		}else if(auxIdDos > auxIdUno)
 		{
 			retorno = -1;
 		}

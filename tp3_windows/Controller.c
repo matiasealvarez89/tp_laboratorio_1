@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <ctype.h>
 #include <string.h>
 
 
@@ -47,7 +46,25 @@ int controller_loadFromText(char* path , LinkedList* pArrayListPassenger)
  */
 int controller_loadFromBinary(char* path , LinkedList* pArrayListPassenger)
 {
-    return 1;
+    int retorno;
+    FILE* pFile;
+
+    retorno = -1;
+
+	if(path != NULL && pArrayListPassenger != NULL)
+	{
+		pFile = fopen(path, "rb");
+
+		if(pFile != NULL)
+		{
+			parser_PassengerFromBinary(pFile, pArrayListPassenger);
+			retorno = 0;
+			fclose(pFile);
+		}
+	}
+
+
+	return retorno;
 }
 
 /** \brief Alta de pasajero
@@ -143,6 +160,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
     char respuesta;
 
     maxId = controller_idMax("ultimoId.csv");
+    maxId++;
 
     retorno = -1;
 
@@ -157,7 +175,7 @@ int controller_removePassenger(LinkedList* pArrayListPassenger)
     			pPasajero = (Passenger*)ll_get(pArrayListPassenger, index);
     			printf("ID 	   Nombre 	Apellido	Precio		CodigoVuelo 	TipoPasajero	FlightStatus\n");
     			Passenger_printUnPassenger(pPasajero);
-    			if(tolower(!getRespuestaDosChar(&respuesta, "Confirma que desea Elminarlo?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3)))
+    			if(!getRespuestaDosChar(&respuesta, "Confirma que desea Elminarlo?(S) SI N) NO)\n", "Ingreso incorrecto\n", 's', 'n', 3))
     			{
     				if(respuesta == 's')
     				{
@@ -222,19 +240,28 @@ int controller_sortPassenger(LinkedList* pArrayListPassenger)
 	int opcion;
 	int orden;
 
-	opcion = 2;
+	printf("1) Por orden alfabatico\n"
+			"2) Por Precio\n"
+			"3) Por Id\n");
 
-	switch(opcion)
+	if(!getNumero(&opcion, "Ingrese la opcion deseada\n", "Ingreso incorrecto\n", 1, 3, 3)
+			&& !getNumero(&orden, "1) Orden Descendente\n2) Orden Ascendente\nSeleccione el orden deseado\n"
+					, "Ingreso incorrecto\n", 1, 2, 3))
 	{
-		case 1:
-			retorno = ll_sort(pArrayListPassenger, Passenger_compareByApellido , 0);
-			break;
-		case 2:
-			retorno = ll_sort(pArrayListPassenger, Passenger_compareByPrecio , 0);
-			break;
+		orden--;
+		switch(opcion)
+		{
+			case 1:
+				retorno = ll_sort(pArrayListPassenger, Passenger_compareByApellido , orden);
+				break;
+			case 2:
+				retorno = ll_sort(pArrayListPassenger, Passenger_compareByPrecio , orden);
+				break;
+			case 3:
+				retorno = ll_sort(pArrayListPassenger, Passenger_compareById , orden);
+				break;
+		}
 	}
-
-
 
 	return retorno;
 }
@@ -322,7 +349,32 @@ int controller_saveAsText(char* path , LinkedList* pArrayListPassenger)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListPassenger)
 {
-    return 1;
+    int retorno;
+    int len;
+    FILE* pFile;
+    Passenger* pPasajero;
+
+    len = ll_len(pArrayListPassenger);
+    retorno = -1;
+
+    if(path != NULL && pArrayListPassenger != NULL)
+    {
+    	pFile = fopen(path, "wb");
+
+    	if(pFile != NULL && len > 0)
+    	{
+    		for(int i = 0; i < len; i++)
+    		{
+    			pPasajero = (Passenger*)ll_get(pArrayListPassenger, i);
+    			fwrite(pPasajero, sizeof(Passenger), 1, pFile);
+    		}
+    		fclose(pFile);
+    	}
+    	retorno = 0;
+    }
+
+
+	return retorno;
 }
 
 int controller_idMax(char* path)

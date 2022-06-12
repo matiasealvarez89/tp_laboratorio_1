@@ -4,10 +4,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 static int esNumerica(char* array);
 static int getInt(int* pResultado);
-//static int myGets(char* array, int len);
 static int esString(char* array);
 static int esStringConNumeros(char* array);
 static char getStringConNumeros(char* pResultado);
@@ -222,6 +222,7 @@ int getRespuestaDosChar(char* pRespuesta,char* mensaje,char* mensajeError,char a
 			printf("%s", mensaje);
 			fflush(stdin);
 			scanf("%c",&buffer);
+			buffer = tolower(buffer);
 
 			if(buffer == a || buffer == b)
 			{

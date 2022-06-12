@@ -23,16 +23,16 @@ Passenger* Passenger_new()
 	return pNuevoPassenger;
 }
 
-/// @brief
+/// @brief Funcion para cargar todos los datos de un passenger
 ///
-/// @param idStr
-/// @param nombreStr
-/// @param apellidoStr
-/// @param precioStr
-/// @param tipoPasajeroStr
-/// @param codigoVueloStr
-/// @param flightStatusStr
-/// @return
+/// @param idStr string id
+/// @param nombreStr string nombre
+/// @param apellidoStr string apellido
+/// @param precioStr string precio
+/// @param tipoPasajeroStr string tipo de pasajero
+/// @param codigoVueloStr string codigo vuelo
+/// @param flightStatusStr string estado de vuelo
+/// @return un pasajero con sus datos en formato string
 Passenger* Passenger_newParametros(char* idStr, char* nombreStr, char* apellidoStr, char* precioStr, char* tipoPasajeroStr,
 		char* codigoVueloStr, char* flightStatusStr)
 {
@@ -93,6 +93,9 @@ Passenger* Passenger_newParametros(char* idStr, char* nombreStr, char* apellidoS
 
 //----------------------------------Destructores----------------------------------------
 
+/// @brief funcion para borrar un pasajero del heap
+///
+/// @param this pasajero a borrar
 void Passenger_delete(Passenger* this)
 {
 	if(this != NULL)
@@ -103,7 +106,11 @@ void Passenger_delete(Passenger* this)
 
 //----------------------------------Getters y Setters----------------------------------------
 
-
+/// @brief funcion para setear ID de un pasajero
+///
+/// @param this pasajero al que se le setea la ID
+/// @param id para asignar
+/// @return 0 si lo pudo hacer -1 si no pudo
 int Passenger_setId(Passenger* this, int id)
 {
 	int retorno;
@@ -119,6 +126,11 @@ int Passenger_setId(Passenger* this, int id)
 	return retorno;
 }
 
+/// @brief funcion para conseguir el ID de un pasajero
+///
+/// @param this pasajero que buscamos el id
+/// @param id puntero al id del pasajero
+/// @return 0 si lo consiguio -1 si no pudo
 int Passenger_getId(Passenger* this, int* id)
 {
 	int retorno;
@@ -134,6 +146,11 @@ int Passenger_getId(Passenger* this, int* id)
 	return retorno;
 }
 
+/// @brief funcion para setear el nombre de un pasajero
+///
+/// @param this pasajero al que se le setea la ID
+/// @param nombre para asignar
+/// @return 0 si lo pudo hacer -1 si no pudo
 int Passenger_setNombre(Passenger* this, char* nombre)
 {
 	int retorno;
@@ -149,6 +166,11 @@ int Passenger_setNombre(Passenger* this, char* nombre)
 	return retorno;
 }
 
+/// @brief funcion para conseguir el nombre de un pasajero
+///
+/// @param this pasajero que buscamos el nombre
+/// @param nombre puntero al nombre del pasajero
+/// @return 0 si lo consiguio -1 si no pudo
 int Passenger_getNombre(Passenger* this, char* nombre)
 {
 	int retorno;
@@ -164,6 +186,11 @@ int Passenger_getNombre(Passenger* this, char* nombre)
 	return retorno;
 }
 
+/// @brief funcion para setear el apellido de un pasajero
+///
+/// @param this pasajero a asignar el apellido
+/// @param apellido a asignar
+/// @return 0 si lo consiguio -1 si no pudo
 int Passenger_setApellido(Passenger* this, char* apellido)
 {
 	int retorno;
@@ -179,6 +206,11 @@ int Passenger_setApellido(Passenger* this, char* apellido)
 	return retorno;
 }
 
+/// @brief funcion para conseguir el apellido de un pasajero
+///
+/// @param this pasajero que del que tomamos el apelldio
+/// @param apellido puntero al apellido
+/// @return 0 si lo consiguio -1 si no pudo
 int Passenger_getApellido(Passenger* this, char* apellido)
 {
 	int retorno;
@@ -196,7 +228,11 @@ int Passenger_getApellido(Passenger* this, char* apellido)
 	return retorno;
 }
 
-
+/// @brief funcion para setear el precio de un pasajero
+///
+/// @param this pasajero del que queremos asignar el precio
+/// @param precio a asignar
+/// @return 0 si pudo -1 si no pudo
 int Passenger_setPrecio(Passenger* this, float precio)
 {
 	int retorno;
@@ -212,6 +248,11 @@ int Passenger_setPrecio(Passenger* this, float precio)
 	return retorno;
 }
 
+/// @brief funcion para conseguir el precio de un pasajero
+///
+/// @param this pasajero del cual buscamos el precio
+/// @param precio puntero al precio buscado
+/// @return 0 si pudo -1 si no pudo
 int Passenger_getPrecio(Passenger* this, float* precio)
 {
 	int retorno;
@@ -227,6 +268,11 @@ int Passenger_getPrecio(Passenger* this, float* precio)
 	return retorno;
 }
 
+/// @brief funcion para setear el tipo de pasajer
+///
+/// @param this pasajero al cual le queremos asignar el tipo
+/// @param tipoPasajero a asignar
+/// @return 0 si pudo -1 si no pudo
 int Passenger_setTipoPasajero(Passenger* this, int tipoPasajero)
 {
 	int retorno;
@@ -242,6 +288,11 @@ int Passenger_setTipoPasajero(Passenger* this, int tipoPasajero)
 	return retorno;
 }
 
+/// @brief funcion para conseguir un tipo de pasajero
+///
+/// @param this pasajero del cual queremos averiguar el tipo
+/// @param tipoPasajero puntero del tipo de pasajero
+/// @return 0 si pudo -1 si no pudo
 int Passenger_getTipoPasajero(Passenger* this, int* tipoPasajero)
 {
 	int retorno;
@@ -257,6 +308,11 @@ int Passenger_getTipoPasajero(Passenger* this, int* tipoPasajero)
 	return retorno;
 }
 
+/// @brief funcion para setear el codigo de vuelo de un pasajero
+///
+/// @param this pasajero al cual queremos asignar el codigo de vuelo
+/// @param codigoVuelo a asignar
+/// @return 0 si pudo -1 si no pudo
 int Passenger_setCodigoVuelo(Passenger* this, char* codigoVuelo)
 {
 	int retorno;
@@ -271,6 +327,12 @@ int Passenger_setCodigoVuelo(Passenger* this, char* codigoVuelo)
 
 	return retorno;
 }
+
+/// @brief funcion para conseguir el codigo de vuelo de un pasajero
+///
+/// @param this pasajero del cual queremos tomar el codigo de vuelo
+/// @param codigoVuelo puntero al codigo de vuelo
+/// @return 0 si pudo -1 si no
 int Passenger_getCodigoVuelo(Passenger* this, char* codigoVuelo)
 {
 	int retorno;
@@ -286,6 +348,11 @@ int Passenger_getCodigoVuelo(Passenger* this, char* codigoVuelo)
 	return retorno;
 }
 
+/// @brief funcion para setear el estado de vuelo de un pasajer
+///
+/// @param this pasajero al cual queremos asignar un estado de vuelo
+/// @param flightStatus a asignar
+/// @return 0 si pudo -1 si no
 int Passenger_setFlightStatus(Passenger* this, int flightStatus)
 {
 	int retorno;
@@ -301,6 +368,11 @@ int Passenger_setFlightStatus(Passenger* this, int flightStatus)
 		return retorno;
 }
 
+/// @brief funcion para conseguir un estado de vuelo de un pasajero
+///
+/// @param this pasajero del cual queremos el estado del vuelo
+/// @param flightStatus puntero para guardar el estado de vuelo
+/// @return 0 si pudo -1 si no
 int Passenger_getFlightStatus(Passenger* this, int* flightStatus)
 {
 	int retorno;
@@ -316,6 +388,17 @@ int Passenger_getFlightStatus(Passenger* this, int* flightStatus)
 	return retorno;
 }
 
+/// @brief funcion para setear todos los datos de un pasajero
+///
+/// @param this
+/// @param id
+/// @param nombre
+/// @param apellido
+/// @param precio
+/// @param tipoPasajero
+/// @param codigoVuelo
+/// @param flightStatus
+/// @return 0 si pudo -1 si no
 int Passenger_setAll(Passenger* this, int id, char* nombre, char* apellido, float precio, int tipoPasajero,
 		char* codigoVuelo, int flightStatus)
 {
@@ -333,6 +416,17 @@ int Passenger_setAll(Passenger* this, int id, char* nombre, char* apellido, floa
 	return retorno;
 }
 
+/// @brief funcion para conseguir todos los datos de un pasajero
+///
+/// @param this
+/// @param id
+/// @param nombre
+/// @param apellido
+/// @param precio
+/// @param tipoPasajero
+/// @param codigoVuelo
+/// @param flightStatus
+/// @return 0 si pudo -1 si no
 int Passenger_getAll(Passenger* this, int* id, char* nombre, char* apellido, float* precio,
 		int* tipoPasajero, char* codigoVuelo, int* flightStatus)
 {
@@ -354,6 +448,9 @@ int Passenger_getAll(Passenger* this, int* id, char* nombre, char* apellido, flo
 
 //-----------------------------------Printeo-----------------------------------------
 
+/// @brief funcion para imprimir en pantalla los datos de un pasajero
+///
+/// @param this pasajero a mostrar
 void Passenger_printUnPassenger(Passenger* this)
 {
 	int auxId;
@@ -404,7 +501,10 @@ void Passenger_printUnPassenger(Passenger* this)
 
 //------------------------------------ABM---------------------------------------------
 
-
+/// @brief funcion para cargar un nuevo pasajero
+///
+/// @param idNuevoPassenger id a asignar al nuevo pasajero (se consigue de otras funciones para que no se repita)
+/// @return el pasajero con los datos cargados
 Passenger* Passenger_addPassenger(int idNuevoPassenger)
 {
 	Passenger* pPassenger;
@@ -469,6 +569,10 @@ Passenger* Passenger_addPassenger(int idNuevoPassenger)
 	return pPassenger;
 }
 
+/// @brief funcion para editar los datos de un pasajero
+///
+/// @param pPasajeroAEditar el pasajero que deseemos editar
+/// @return 0 si pudo -1 si no
 int Passenger_edit(Passenger* pPasajeroAEditar)
 {
 	Passenger* pPasajeroAux;
@@ -636,6 +740,11 @@ int Passenger_edit(Passenger* pPasajeroAEditar)
 
 //-----------------------------------Find--------------------------------------------------
 
+/// @brief  funcion para encontrar un pasajero por ID
+///
+/// @param pArrayaPasajero listado de pasajeros
+/// @param id del pasajero a encontrar
+/// @return -1 si no lo encontro o el index del pasajero buscado
 int Passenger_findById(LinkedList* pArrayaPasajero, int id)
 {
 	Passenger* pPasajero;
@@ -659,8 +768,7 @@ int Passenger_findById(LinkedList* pArrayaPasajero, int id)
 	return retorno;
 }
 
-
-//-----------------------------------Sort-------------------------------------------------
+//-------------------------------Sort-------------------------------------
 
 int Passenger_compareByApellido(void* pasajeroUno, void* pasajeroDos)
 {

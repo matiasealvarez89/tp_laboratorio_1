@@ -7,9 +7,10 @@
 
 #define LIBRE 1
 #define OCUPADO 0
-#define ELEMENTS 5
+#define ELEMENTS 2000
 
-int main(void) {
+int main(void)
+{
 	setbuf(stdout, NULL);
 
 	Passenger arrayPasengers[ELEMENTS];
@@ -24,7 +25,7 @@ int main(void) {
 		printf("Se inicializo el programa\n");
 	}else
 	{
-		printf("No hay arrayPasengers reservada"); // preguntar sobre estos mensajes
+		printf("No hay arrayPasengers reservada");
 	}
 
 	do{
@@ -41,6 +42,7 @@ int main(void) {
 					primerPosicionLibre = primerEspacioLibre(arrayPasengers, ELEMENTS);
 					if(primerPosicionLibre != -1)
 					{
+
 						addPassenger(arrayPasengers, ELEMENTS, arrayPasengers[primerPosicionLibre].id, arrayPasengers[primerPosicionLibre].name,
 								arrayPasengers[primerPosicionLibre].lastName, arrayPasengers[primerPosicionLibre].price,
 								arrayPasengers[primerPosicionLibre].typePassenger, arrayPasengers[primerPosicionLibre].flyCode, primerPosicionLibre);
@@ -227,4 +229,5 @@ int main(void) {
 
 
 	return EXIT_SUCCESS;
+
 }

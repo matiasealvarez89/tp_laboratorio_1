@@ -28,5 +28,6 @@ int sortPassengersByCode(Passenger* list, int len, int order);
 int primerEspacioLibre(Passenger* list, int len);
 int promedioPasajes(Passenger* list, int len);
 int printPassengersStatus(Passenger* list, int len);
+int passenger_obtenerID();
 
 #endif /* PASSENGER_H_ */

@@ -9,11 +9,15 @@
 #define OCUPADO 0
 
 
-static int idIncremental = 1000;
-static int passenger_obtenerID();
-static int passenger_obtenerID()
+
+
+int passenger_obtenerID()
 {
-	return idIncremental++;
+	static int idIncremental = 999;
+
+	idIncremental++;
+
+	return idIncremental;
 }
 /// @brief funcion para inicializar el array de pasajeros
 ///
@@ -62,9 +66,10 @@ int addPassenger(Passenger* list, int len, int id, char name[], char lastName[],
 			&& !getPalabra(list[index].lastName, "Ingrese el apellido del pasajero: \n", "Apellido no valido\n", 2, 49, 3)
 			&& !getFloat(&list[index].price, "Ingrese el precio del pasaje: \n", "Ingreso Incorrecto\n", 1, 500000, 3)
 			&& !getPalabra(list[index].flyCode, "Ingrese el codigo de vuelo: \n" , "Ingreso Incorrecto\n", 1, 9, 3)
-			&& !getNumero(&list[index].typePassenger, "Ingrese el tipo de pasajero (1- PRIMERA CLASE, 2- SUPERIOR, 3- COMUN): \n", "Ingreso Incorrecto\n", 1, 3, 3))
+			&& !getNumero(&list[index].typePassenger, "Ingrese el tipo de pasajero (1- PRIMERA CLASE, 2- SUPERIOR, 3- COMUN): \n", "Ingreso Incorrecto\n", 1, 3, 3)
+			&& !getNumero(&list[index].statusFlight, "Ingrese el estado del vuelo (1- ACTIVO, 2- SUSPENDIDO, 3- FINALIZADO): \n", "Ingreso Incorrecto\n", 1, 3, 3))
 		{
-			list[index].statusFlight = 1;
+
 			list[index].isEmpty = OCUPADO;
 			list[index].id = passenger_obtenerID();
 
@@ -352,7 +357,7 @@ int promedioPasajes(Passenger* list, int len)
 
 		for(int i = 0; i < len; i++)
 		{
-			if(list[i].price > promedio)
+			if(list[i].price > promedio && list[i].isEmpty == 0)
 			{
 				contadorSuperaPromedio++;
 			}

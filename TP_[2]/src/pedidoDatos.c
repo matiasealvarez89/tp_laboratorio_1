@@ -4,11 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 static int esNumerica(char* array);
 static int getInt(int* pResultado);
-//static int myGets(char* array, int len);
 static int esString(char* array);
+static int esStringConNumeros(char* array);
+static char getStringConNumeros(char* pResultado);
 
 
 static int getInt(int* pResultado)
@@ -33,6 +35,21 @@ static char getString(char* pResultado)
 
 
 	if(myGets(buffer, sizeof(buffer)) == 0 && esString(buffer))
+	{
+		retorno = 0;
+		strcpy(pResultado,buffer);
+	}
+
+	return retorno;
+}
+
+static char getStringConNumeros(char* pResultado)
+{
+	int retorno = -1;
+	char buffer[4096];
+
+
+	if(myGets(buffer, sizeof(buffer)) == 0 && esStringConNumeros(buffer))
 	{
 		retorno = 0;
 		strcpy(pResultado,buffer);
@@ -85,6 +102,24 @@ static int esString(char* array)
 	for(i = 0 ; array[i] != '\0'; i++)
 	{
 		if((array[i]< 'A' || array[i] > 'Z') && (array[i]< 'a' || array[i] > 'z') && array[i] != ' ')
+		{
+			retorno = 0;
+			break;
+		}
+	}
+
+	return retorno;
+}
+
+static int esStringConNumeros(char* array)
+{
+	int retorno = -1;
+	int i;
+
+
+	for(i = 0 ; array[i] != '\0'; i++)
+	{
+		if((array[i]< 'A' || array[i] > 'Z') && (array[i]< 'a' || array[i] > 'z') && (array[i]< '0' || array[i] > '9') && array[i] != ' ')
 		{
 			retorno = 0;
 			break;
@@ -187,6 +222,7 @@ int getRespuestaDosChar(char* pRespuesta,char* mensaje,char* mensajeError,char a
 			printf("%s", mensaje);
 			fflush(stdin);
 			scanf("%c",&buffer);
+			buffer = tolower(buffer);
 
 			if(buffer == a || buffer == b)
 			{
@@ -252,6 +288,36 @@ int getPalabra(char* pStringIngresado,char* mensaje,char* mensajeError,int minim
 
 
 			if(getString(buffer) == 0 && strlen(buffer) >= minimo && strlen(buffer) <= maximo)
+			{
+				strcpy(pStringIngresado,buffer);
+				retorno = 0;
+				break;
+			}else
+			{
+				printf("%s", mensajeError);
+			}
+			reintentos--;
+
+		}while(reintentos >= 0);
+	}
+
+
+	return retorno;
+}
+
+int getPalabraConNumeros(char* pStringIngresado,char* mensaje,char* mensajeError,int minimo,int maximo,int reintentos)
+{
+	char buffer[4096];
+	int retorno;
+	retorno = -1;
+
+	if(pStringIngresado != NULL && maximo >= minimo && reintentos>= 0){
+		do
+		{
+			printf("%s", mensaje);
+
+
+			if(getStringConNumeros(buffer) == 0 && strlen(buffer) >= minimo && strlen(buffer) <= maximo)
 			{
 				strcpy(pStringIngresado,buffer);
 				retorno = 0;

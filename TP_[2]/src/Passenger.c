@@ -10,7 +10,9 @@
 
 
 
-
+/// @brief Funcion para generar el ID de un pasajero
+///
+/// @return Retorna el ID
 int passenger_obtenerID()
 {
 	static int idIncremental = 999;
@@ -65,7 +67,7 @@ int addPassenger(Passenger* list, int len, int id, char name[], char lastName[],
 		if(!getPalabra(list[index].name, "Ingrese el nombre del pasajero: \n", "Nombre no valido\n", 2, 49, 3)
 			&& !getPalabra(list[index].lastName, "Ingrese el apellido del pasajero: \n", "Apellido no valido\n", 2, 49, 3)
 			&& !getFloat(&list[index].price, "Ingrese el precio del pasaje: \n", "Ingreso Incorrecto\n", 1, 500000, 3)
-			&& !getPalabra(list[index].flyCode, "Ingrese el codigo de vuelo: \n" , "Ingreso Incorrecto\n", 1, 9, 3)
+			&& !getPalabraConNumeros(list[index].flyCode, "Ingrese el codigo de vuelo: \n" , "Ingreso Incorrecto\n", 1, 9, 3)
 			&& !getNumero(&list[index].typePassenger, "Ingrese el tipo de pasajero (1- PRIMERA CLASE, 2- SUPERIOR, 3- COMUN): \n", "Ingreso Incorrecto\n", 1, 3, 3)
 			&& !getNumero(&list[index].statusFlight, "Ingrese el estado del vuelo (1- ACTIVO, 2- SUSPENDIDO, 3- FINALIZADO): \n", "Ingreso Incorrecto\n", 1, 3, 3))
 		{
@@ -116,17 +118,88 @@ int removePassenger(Passenger* list, int len, int id)
 {
 	int retorno = -1;
 	int index;
+	int respuesta;
 
-			if(list != NULL && len > 0 && id > 0)
+	if(list != NULL && len > 0 && id > 0)
+	{
+		index = findPassenger(list, len, id);
+		printf("\nId\t\tApellido\tNombre\t\tPrecio\t\tFlycode\t\tTipo de Pasajero\tStatus Flight\n");
+		printUnPassenger(list[index]);
+		if(!getNumero(&respuesta, "Desea confirmar la baja del pasajero(1-SI 2-NO): \n",
+					"Ingreso Incorrecto\n", 1, 2, 3))
+		{
+			switch(respuesta)
 			{
-				index = findPassenger(list, len, id);
-				if(index != -1)
-				{
-					printUnPassenger(list[index]);
+				case 1:
 					list[index].isEmpty = LIBRE;
 					retorno = 0;
-				}
+					printf("Se ha dado de baja correctamente\n");
+					break;
+				case 2:
+					printf("No se dio de baja\n");
+					break;
 			}
+		}
+	}
+
+	return retorno;
+}
+
+/// @brief Funcion para editar pasajeros
+///
+/// @param list Array de pasajeros
+/// @param len Largo del array
+/// @param id id por el cual se busca el pasajero
+/// @return (-1) si no lo encontro (0) si lo borro correctamente
+int changePassenger(Passenger* list, int len, int id)
+{
+	int retorno = -1;
+	int index;
+	int respuesta = 0;
+
+	if(list != NULL && len > 0 && id > 0)
+	{
+		index = findPassenger(list, len, id);
+		if(index != -1)
+		{
+			do
+			{
+				printf("\nId\t\tApellido\tNombre\t\tPrecio\t\tFlycode\t\tTipo de Pasajero\tStatus Flight\n");
+				printUnPassenger(list[index]);
+				printf("\n");
+
+				if(!getNumero(&respuesta, "1) Nombre\n2) Apellido\n3) Precio\n4) FlyCode\n"
+						"5) Tipo de Pasajero\n6) Estado de vuelo\n7) Volver\nIngrese el campo que desea modificar: ",
+						"Ingreso Incorrecto\n", 1, 7, 3))
+				{
+					switch(respuesta)
+					{
+						case 1:
+							getPalabra(list[index].name, "Ingrese el nombre del pasajero: \n", "Nombre no valido\n", 2, 49, 3);
+							break;
+						case 2:
+							getPalabra(list[index].lastName, "Ingrese el apellido del pasajero: \n", "Nombre no valido\n", 2, 49, 3);
+							break;
+						case 3:
+							getFloat(&list[index].price, "Ingrese el precio del pasaje: \n", "Ingreso Incorrecto\n", 1, 500000, 3);
+							break;
+						case 4:
+							getPalabraConNumeros(list[index].flyCode, "Ingrese el codigo de vuelo: \n" , "Ingreso Incorrecto\n", 1, 9, 3);
+							break;
+						case 5:
+							getNumero(&list[index].typePassenger, "Ingrese el tipo de pasajero (1- PRIMERA CLASE, 2- SUPERIOR, 3- COMUN): \n", "Ingreso Incorrecto\n", 1, 3, 3);
+							break;
+						case 6:
+							getNumero(&list[index].statusFlight, "Ingrese el estado del vuelo (1- ACTIVO, 2- SUSPENDIDO, 3- FINALIZADO): \n", "Ingreso Incorrecto\n", 1, 3, 3);
+							break;
+						case 7:
+							printf("Volviendo al menu princpal\n");
+							break;
+					}
+				}
+			}while(respuesta != 7);
+		}
+	}
 
 	return retorno;
 }
@@ -376,19 +449,87 @@ int promedioPasajes(Passenger* list, int len)
 int printPassengersStatus(Passenger* list, int len)
 {
 	int retorno = -1;
+	char auxFlyCode[10];
 
-		if(list != NULL && len >0)
+	printPassengers(list, len);
+
+	if(list != NULL && len >0 &&
+			!getPalabraConNumeros(auxFlyCode, "Ingreso el codigo de vuelo deseado\n", "Ingreso invalido\n", 3, 10, 3))
+	{
+		printf("\nId\t\tApellido\tNombre\t\tPrecio\t\tFlycode\t\tTipo de Pasajero\tStatus Flight\n");
+		for(int i = 0; i < len; i++)
 		{
-			printf("\nId\t\tApellido\tNombre\t\tPrecio\t\tFlycode\t\tTipo de Pasajero\tStatus Flight\n");
-			for(int i = 0; i < len; i++)
+			if(list[i].isEmpty == OCUPADO && strcmp(list[i].flyCode,auxFlyCode) == 0 && list[i].statusFlight == 1)
 			{
-				if(list[i].isEmpty == OCUPADO && list[i].statusFlight == 1)
-				{
-					printUnPassenger(list[i]);
-				}
+				printUnPassenger(list[i]);
 			}
-			retorno = 0;
-			printf("\n");
 		}
-		return retorno;
+		retorno = 0;
+		printf("\n");
+	}
+	return retorno;
+}
+
+int forcedPassenger(Passenger* list, int len)
+{
+	int retorno = -1;
+	int respuesta;
+
+	if(list != NULL && !getNumero(&respuesta, "Confirma que desea realizar la carga forzada (Se perderan los elementos cargados "
+			"anteriormente) 1- SI 2- NO\n", "Opcion no valida\n", 1, 2, 3))
+	{
+		if(respuesta == 1)
+		{
+			list[0].id = passenger_obtenerID();
+			strcpy(list[0].name,"Juan");
+			strcpy(list[0].lastName,"Gomez");
+			list[0].price = 59850.25;
+			strcpy(list[0].flyCode,"AAX236");
+			list[0].typePassenger = 1;
+			list[0].isEmpty = 0;
+			list[0].statusFlight = 1;
+
+			list[1].id = passenger_obtenerID();
+			strcpy(list[1].name,"Camila");
+			strcpy(list[1].lastName,"Martin");
+			list[1].price = 25200.65;
+			strcpy(list[1].flyCode,"AAC872");
+			list[1].typePassenger = 2;
+			list[1].isEmpty = 0;
+			list[1].statusFlight = 1;
+
+			list[2].id = passenger_obtenerID();
+			strcpy(list[2].name,"Roberto");
+			strcpy(list[2].lastName,"Alvarez");
+			list[2].price = 62500.25;
+			strcpy(list[2].flyCode,"BSQ456");
+			list[2].typePassenger = 2;
+			list[2].isEmpty = 0;
+			list[2].statusFlight = 3;
+
+			list[3].id = passenger_obtenerID();
+			strcpy(list[3].name,"Candela");
+			strcpy(list[3].lastName,"Gimenez");
+			list[3].price = 25200.65;
+			strcpy(list[3].flyCode,"GSR120");
+			list[3].typePassenger = 3;
+			list[3].isEmpty = 0;
+			list[3].statusFlight = 1;
+
+			list[4].id = passenger_obtenerID();
+			strcpy(list[4].name,"Lucas");
+			strcpy(list[4].lastName,"Alvarez");
+			list[4].price = 45213.78;
+			strcpy(list[4].flyCode,"GSR120");
+			list[4].typePassenger = 1;
+			list[4].isEmpty = 0;
+			list[4].statusFlight = 1;
+			printPassengers(list, len);
+		}else
+		{
+			printf("No se cargaron datos fozados\n");
+		}
+	}
+
+	return retorno;
 }

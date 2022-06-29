@@ -29,5 +29,7 @@ int primerEspacioLibre(Passenger* list, int len);
 int promedioPasajes(Passenger* list, int len);
 int printPassengersStatus(Passenger* list, int len);
 int passenger_obtenerID();
+int changePassenger(Passenger* list, int len, int id);
+int forcedPassenger(Passenger* list, int len);
 
 #endif /* PASSENGER_H_ */

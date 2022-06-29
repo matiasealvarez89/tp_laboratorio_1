@@ -223,7 +223,8 @@ int sortPassenger(Passenger* list, int len, int order)
 				estaOrdenado = 1;
 				len--;
 				for (i = 0; i < len; i++) {
-					if (list[i].isEmpty == OCUPADO && strcmp(list[i].lastName,list[i + 1].lastName) == 1){
+					if (list[i].isEmpty == OCUPADO && strcmp(list[i].lastName,list[i + 1].lastName) == 1)
+					{
 						aux = list[i];
 						list[i] = list[i + 1];
 						list[i + 1] = aux;
@@ -234,10 +235,10 @@ int sortPassenger(Passenger* list, int len, int order)
 						{
 							if (list[i].typePassenger > list[i + 1].typePassenger)
 							{
-							aux = list[i];
-							list[i] = list[i + 1];
-							list[i + 1] = aux;
-							estaOrdenado = 0;
+								aux = list[i];
+								list[i] = list[i + 1];
+								list[i + 1] = aux;
+								estaOrdenado = 0;
 							}
 						}
 					}
@@ -251,7 +252,8 @@ int sortPassenger(Passenger* list, int len, int order)
 				estaOrdenado = 1;
 				len--;
 				for (i = 0; i < len; i++) {
-					if (strcmp(list[i + 1].lastName,list[i].lastName) == 1){
+					if (strcmp(list[i + 1].lastName,list[i].lastName) == 1)
+					{
 						aux = list[i];
 						list[i] = list[i + 1];
 						list[i + 1] = aux;
@@ -262,10 +264,10 @@ int sortPassenger(Passenger* list, int len, int order)
 						{
 							if (list[i].typePassenger > list[i + 1].typePassenger)
 							{
-							aux = list[i];
-							list[i] = list[i + 1];
-							list[i + 1] = aux;
-							estaOrdenado = 0;
+								aux = list[i];
+								list[i] = list[i + 1];
+								list[i + 1] = aux;
+								estaOrdenado = 0;
 							}
 						}
 					}
@@ -275,7 +277,6 @@ int sortPassenger(Passenger* list, int len, int order)
 		}
 
 	}
-
 	return retorno;
 }
 /// @brief funcion para mostrar el listado de pasajeros
@@ -322,7 +323,25 @@ int sortPassengersByCode(Passenger* list, int len, int order)
 				estaOrdenado = 1;
 				len--;
 				for (i = 0; i < len; i++) {
-					if (list[i].isEmpty == OCUPADO && strcmp(list[i].flyCode,list[i + 1].flyCode) == 1){
+					if (list[i].isEmpty == OCUPADO && strcmp(list[i].flyCode,list[i + 1].flyCode) > 0)
+					{
+						aux = list[i];
+						list[i] = list[i + 1];
+						list[i + 1] = aux;
+						estaOrdenado = 0;
+					}
+				}
+			}while(estaOrdenado == 0);
+			retorno = 0;
+		}
+		else if(order == 2)
+		{
+			do {
+				estaOrdenado = 1;
+				len--;
+				for (i = 0; i < len; i++) {
+					if (strcmp(list[i + 1].lastName,list[i].lastName) < 0)
+					{
 						aux = list[i];
 						list[i] = list[i + 1];
 						list[i + 1] = aux;
@@ -435,7 +454,8 @@ int promedioPasajes(Passenger* list, int len)
 				contadorSuperaPromedio++;
 			}
 		}
-		printf("La suma de los precios es: $%.2f\nEl precio promedio es: $%2.f\n%d Pasajeros superan el precio promedio\n\n", acumulador, promedio, contadorSuperaPromedio);
+		printf("La suma de los precios es: $%.2f\nEl precio promedio es: $%2.f\n%d Pasajeros superan el "
+				"precio promedio\n\n", acumulador, promedio, contadorSuperaPromedio);
 		retorno = 0;
 	}
 
@@ -449,17 +469,13 @@ int promedioPasajes(Passenger* list, int len)
 int printPassengersStatus(Passenger* list, int len)
 {
 	int retorno = -1;
-	char auxFlyCode[10];
 
-	printPassengers(list, len);
-
-	if(list != NULL && len >0 &&
-			!getPalabraConNumeros(auxFlyCode, "Ingreso el codigo de vuelo deseado\n", "Ingreso invalido\n", 3, 10, 3))
+	if(list != NULL && len >0)
 	{
 		printf("\nId\t\tApellido\tNombre\t\tPrecio\t\tFlycode\t\tTipo de Pasajero\tStatus Flight\n");
 		for(int i = 0; i < len; i++)
 		{
-			if(list[i].isEmpty == OCUPADO && strcmp(list[i].flyCode,auxFlyCode) == 0 && list[i].statusFlight == 1)
+			if(list[i].isEmpty == OCUPADO && list[i].statusFlight == 1)
 			{
 				printUnPassenger(list[i]);
 			}
@@ -470,6 +486,11 @@ int printPassengersStatus(Passenger* list, int len)
 	return retorno;
 }
 
+/// @brief Funcion para carga forzada
+///
+/// @param list Array de pasajeros
+/// @param len Largo de la lista
+/// @return (-1) error (0) si se cargo correctamente
 int forcedPassenger(Passenger* list, int len)
 {
 	int retorno = -1;

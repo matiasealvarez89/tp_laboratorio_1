@@ -15,10 +15,9 @@ int main(void)
 
 	Passenger arrayPasengers[ELEMENTS];
 	int primerPosicionLibre;
-	//int posicionSeleccionada;
 	int respuesta;
-	//int idParaBaja;
 	int flagCarga = 0;
+	int ordenSort;
 
 	if(!initPassenger(arrayPasengers, ELEMENTS))
 	{
@@ -105,15 +104,16 @@ int main(void)
 								switch(respuesta)
 								{
 									case 1:
-										sortPassenger(arrayPasengers, ELEMENTS, 1);
+										getNumero(&ordenSort, "Ingrese el critero para ordenar (1- Descendente 2- Ascendente)\n", "Ingreso incorrecto\n", 1, 2, 3);
+										sortPassenger(arrayPasengers, ELEMENTS, ordenSort);
 										printPassengers(arrayPasengers, ELEMENTS);
-										respuesta = 0;
 										break;
 									case 2:
 										promedioPasajes(arrayPasengers, ELEMENTS);
 										break;
 									case 3:
-										sortPassengersByCode(arrayPasengers, ELEMENTS, 1);
+										getNumero(&ordenSort, "Ingrese el critero para ordenar (1- Descendente 2- Ascendente)\n", "Ingreso incorrecto\n", 1, 2, 3);
+										sortPassengersByCode(arrayPasengers, ELEMENTS, ordenSort);
 										printPassengersStatus(arrayPasengers, ELEMENTS);
 										break;
 									case 4:
